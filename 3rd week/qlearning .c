@@ -31,9 +31,9 @@ int main(int argc, char const *argv[])
 	for (i=0; i<GENMAX;++i){
 		s=0;
 		for (t=0; t<3; ++t){
-			s=selecta(s,qvalue);
+			s=selecta(s,qvalue); // 실제 행동
 
-			qvalue[s]=updateq(s,qvalue);
+			qvalue[s]=updateq(s,qvalue); // 이때까지 행동을 바탕으로 Q-value 업데이트
 
 		}
 		printqvalue(qvalue);
@@ -47,21 +47,21 @@ int updateq(int s, int qvalue[NODENO]){
 
 	if(s>6){
 		if(s==14){
-			qv=qvalue[s]+ALPHA*(1000 - qvalue[s]);
+			qv=qvalue[s]+ALPHA*(1000 - qvalue[s]); // ALPHA는 속도, 1000이 Maximum.
 		}else if(s==11){
 			qv=qvalue[s]+ALPHA*(500 - qvalue[s]);
 		}else{
 			qv=qvalue[s];
 		}
 	}else{
-		if ((qvalue[2*s+1])>(qvalue[2*s+2]))
+		if ((qvalue[2*s+1])>(qvalue[2*s+2])) // 둘 중 큰 값을 넣어준다
 		{
-			qmax=qvalue[2*s+1];
+			qmax=qvalue[2*s+1]; //왼쪽
 
 		}else{
-			qmax=qvalue[2*s+2];
+			qmax=qvalue[2*s+2]; //오른쪽
 		}
-		qv=qvalue[s]+ALPHA*(GAMMA*qmax- qvalue[s]);
+		qv=qvalue[s]+ALPHA*(GAMMA*qmax- qvalue[s]); //qvalue 업데이트
 	}
 	return qv;
 }
@@ -69,8 +69,9 @@ int updateq(int s, int qvalue[NODENO]){
 int selecta(int olds, int qvalue[NODENO]){
 	int s;
 
-	if(rand1()<EPSILON){
-		if(rand01()==0) s=2*olds+1;
+	if(rand1()<EPSILON){ //0~1 사이의 랜덤#, 즉 EPSILON=0.3의 확률, e-greedy 
+		if(rand01()==0) 
+			s=2*olds+1;
 		else s=2*olds+2;
 	}
 	else{
