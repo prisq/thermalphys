@@ -5,8 +5,9 @@
 #define xdim 4 //l=1
 #define l2no 3
 #define ydim 3 //l=3
-#define m 1 //m is number of training sets
+#define m 1 //m is # of training sets
 #define lrate 0.001 //learning rate
+#define iter 5 // # of iteration 
 
 double activation(double u);
 double activation_derivative(double u);
@@ -40,8 +41,8 @@ int main(){
 	randomize(w1,b1,wo,bo);
 
 	//Iterate until it reachs tolerance 
-	for(int iter=0; iter<5; iter++){
-		printf("Epoch : %d\n", iter);
+	for(int epoch=0; epoch<iter; epoch++){
+		printf("Epoch : %d\n", epoch);
 
 		//For k-th traing exmaple
 		for(int k=0; k<m; k++){
